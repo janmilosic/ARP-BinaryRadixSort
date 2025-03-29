@@ -27,6 +27,26 @@ void Izpis_Stevil(int* polje, unsigned int velikost) {
         output << polje[i] << ' ';
 }
 
+vector<int> Counting_Sort(const vector<int>& D, const vector<int>& index) {
+    vector<int> count(2, 0);
+    vector<int> output_index(D.size());
+
+    for (int bit : D) {
+        count[bit]++;
+    }
+
+    count[1] = count[0];
+    count[0] = 0;
+
+    for (int i = 0; i < D.size(); ++i) {
+        int bit = D[i];
+        output_index[count[bit]] = index[i];
+        count[bit]++;
+    }
+
+    return output_index;
+}
+
 int main(int argc, const char* argv[]) {
     vector<int> A;
 
@@ -34,5 +54,15 @@ int main(int argc, const char* argv[]) {
     if (!Branje_Stevil(A, argv[1])) return 0;
 
     Izpis_Stevil(&A[0], A.size());
+
+    //testiranje
+    vector<int> D = {1, 0, 1, 0, 1};
+    vector<int> index = {0, 1, 2, 3, 4};
+    vector<int> sorted_index = Counting_Sort(D, index);
+    for (int i : sorted_index) {
+        cout << i << ' ';
+    }
+    cout << endl;
+
     return 0;
 }
