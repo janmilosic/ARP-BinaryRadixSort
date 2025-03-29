@@ -47,6 +47,29 @@ vector<int> Counting_Sort(const vector<int>& D, const vector<int>& index) {
     return output_index;
 }
 
+vector<int> Radix_Sort(const vector<int>& A) {
+    vector<int> current = A;
+
+    for (int bit = 0; bit < 8; ++bit) {
+        vector<int> D(current.size());
+        vector<int> index(current.size());
+
+        for (int i = 0; i < current.size(); ++i) {
+            D[i] = (current[i] >> bit) & 1;
+            index[i] = i;
+        }
+
+        vector<int> sorted_index = Counting_Sort(D, index);
+
+        vector<int> next(current.size());
+        for (int i = 0; i < current.size(); ++i) {
+            next[i] = current[sorted_index[i]];
+        }
+        current = next;
+    }
+    return current;
+}
+
 int main(int argc, const char* argv[]) {
     vector<int> A;
 
@@ -54,15 +77,6 @@ int main(int argc, const char* argv[]) {
     if (!Branje_Stevil(A, argv[1])) return 0;
 
     Izpis_Stevil(&A[0], A.size());
-
-    //testiranje
-    vector<int> D = {1, 0, 1, 0, 1};
-    vector<int> index = {0, 1, 2, 3, 4};
-    vector<int> sorted_index = Counting_Sort(D, index);
-    for (int i : sorted_index) {
-        cout << i << ' ';
-    }
-    cout << endl;
 
     return 0;
 }
