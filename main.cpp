@@ -27,6 +27,26 @@ void Izpis_Stevil(int* polje, unsigned int velikost) {
         output << polje[i] << ' ';
 }
 
+vector<int> Counting_Sort(const vector<int>& D, const vector<int>& index) {
+    vector<int> count(2, 0);
+    vector<int> output_index(D.size());
+
+    for (int bit : D) {
+        count[bit]++;
+    }
+
+    count[1] = count[0];
+    count[0] = 0;
+
+    for (int i = 0; i < D.size(); ++i) {
+        int bit = D[i];
+        output_index[count[bit]] = index[i];
+        count[bit]++;
+    }
+
+    return output_index;
+}
+
 int main(int argc, const char* argv[]) {
     vector<int> A;
 
