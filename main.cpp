@@ -3,7 +3,7 @@
 #include <vector>
 using namespace std;
 
-bool Branje_Stevil(vector<int> &vec, const char s[]) {
+bool Branje_Stevil(vector<int>& vec, const char s[]) {
     ifstream input(s);
     int st;
 
@@ -23,7 +23,7 @@ bool Branje_Stevil(vector<int> &vec, const char s[]) {
 void Izpis_Stevil(int* polje, unsigned int velikost) {
     ofstream output("out.txt");
 
-    for (int i = 0; i<velikost; i++)
+    for (int i = 0; i < velikost; i++)
         output << polje[i] << ' ';
 }
 
@@ -73,10 +73,14 @@ vector<int> Radix_Sort(const vector<int>& A) {
 int main(int argc, const char* argv[]) {
     vector<int> A;
 
-    if (argc < 2) return 0;
-    if (!Branje_Stevil(A, argv[1])) return 0;
+    if (!Branje_Stevil(A, argv[1])) {
+        cout << "Napaka pri branju datoteke: " << argv[1] << endl;
+        return 1;
+    }
 
+    A = Radix_Sort(A);
     Izpis_Stevil(&A[0], A.size());
 
     return 0;
 }
+
