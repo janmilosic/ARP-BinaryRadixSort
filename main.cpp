@@ -54,5 +54,15 @@ int main(int argc, const char* argv[]) {
     if (!Branje_Stevil(A, argv[1])) return 0;
 
     Izpis_Stevil(&A[0], A.size());
+
+    //testiranje
+    vector<int> D = {1, 0, 1, 0, 1};
+    vector<int> index = {0, 1, 2, 3, 4};
+    vector<int> sorted_index = Counting_Sort(D, index);
+    for (int i : sorted_index) {
+        cout << i << ' ';
+    }
+    cout << endl;
+
     return 0;
 }
