@@ -3,7 +3,7 @@
 #include <vector>
 using namespace std;
 
-bool Branje_Stevil(vector<int> &vec, const char s[]) {
+bool Branje_Stevil(vector<int>& vec, const char s[]) {
     ifstream input(s);
     int st;
 
@@ -23,7 +23,7 @@ bool Branje_Stevil(vector<int> &vec, const char s[]) {
 void Izpis_Stevil(int* polje, unsigned int velikost) {
     ofstream output("out.txt");
 
-    for (int i = 0; i<velikost; i++)
+    for (int i = 0; i < velikost; i++)
         output << polje[i] << ' ';
 }
 
@@ -47,22 +47,40 @@ vector<int> Counting_Sort(const vector<int>& D, const vector<int>& index) {
     return output_index;
 }
 
+vector<int> Radix_Sort(const vector<int>& A) {
+    vector<int> current = A;
+
+    for (int bit = 0; bit < 8; ++bit) {
+        vector<int> D(current.size());
+        vector<int> index(current.size());
+
+        for (int i = 0; i < current.size(); ++i) {
+            D[i] = (current[i] >> bit) & 1;
+            index[i] = i;
+        }
+
+        vector<int> sorted_index = Counting_Sort(D, index);
+
+        vector<int> next(current.size());
+        for (int i = 0; i < current.size(); ++i) {
+            next[i] = current[sorted_index[i]];
+        }
+        current = next;
+    }
+    return current;
+}
+
 int main(int argc, const char* argv[]) {
     vector<int> A;
 
-    if (argc < 2) return 0;
-    if (!Branje_Stevil(A, argv[1])) return 0;
-
-    Izpis_Stevil(&A[0], A.size());
-
-    //testiranje
-    vector<int> D = {1, 0, 1, 0, 1};
-    vector<int> index = {0, 1, 2, 3, 4};
-    vector<int> sorted_index = Counting_Sort(D, index);
-    for (int i : sorted_index) {
-        cout << i << ' ';
+    if (!Branje_Stevil(A, argv[1])) {
+        cout << "Napaka pri branju datoteke: " << argv[1] << endl;
+        return 1;
     }
-    cout << endl;
+
+    A = Radix_Sort(A);
+    Izpis_Stevil(&A[0], A.size());
 
     return 0;
 }
+
