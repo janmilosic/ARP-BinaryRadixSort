@@ -1,0 +1,3 @@
+/Users/janmilosic/Documents/Algoritmi v racunalniski praksi/DN1/cmake-build-debug/CMakeFiles/DN1.dir
+/Users/janmilosic/Documents/Algoritmi v racunalniski praksi/DN1/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/janmilosic/Documents/Algoritmi v racunalniski praksi/DN1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
