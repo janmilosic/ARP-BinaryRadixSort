@@ -27,6 +27,12 @@ void Izpis_Stevil(int* polje, unsigned int velikost) {
         output << polje[i] << ' ';
 }
 
-int main() {
-    std::cout << "Binary Radix sort";
+int main(int argc, const char* argv[]) {
+    vector<int> A;
+
+    if (argc < 2) return 0;
+    if (!Branje_Stevil(A, argv[1])) return 0;
+
+    Izpis_Stevil(&A[0], A.size());
+    return 0;
 }
